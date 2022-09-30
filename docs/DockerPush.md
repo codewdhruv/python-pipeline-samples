@@ -6,31 +6,33 @@
    
       - Name: `create image`
       - Container registry: Click on docker connecter created in the previous step 
-      - Image: `alpine`
+      - Image: `node:14`
       - Commands: Copy the following command and click on apply changes.
  
          ```
-         touch pythondockerfile
-         cat > pythondockerfile <<- EOM
-         FROM python:3.10.6-alpine
-         WORKDIR /py-sample-proj
-         ADD . /py-sample-proj
-         RUN pip install -r requirements.txt
-         CMD ["python" , "app.py"]
+         touch nodejsdockerfile
+         cat > nodejsdockerfile <<- EOM
+         FROM node:14
+         WORKDIR /nodejshelloworld
+         COPY package*.json index.js ./
+         RUN npm install
+         EXPOSE 8080
+         CMD ["node", "index.js"]
          EOM
-         cat pythondockerfile
+         cat nodejsdockerfile
          ```
          
       
  ## Build and Push Image to Docker Registry
- - Click on `Add step`
- - Go to `builds` and click on `build and push an image to docker registry`
+ 
+ - Click on `Add Step`
+ - Go to `Builds` and click on `Build And Push an Image to Docker Registry`
  -  Change the settings as following:
-    - Name: `Build and push image to docker hub`
-    - Docker connector: select the Docker connector you created previously 
+    - Name: `Build and Push Image to Docker Hub`
+    - Docker connector: Select the Docker Connector you created previously 
     - Docker repository: `<docker-hub-username>/<docker-repository name>`
     - Tags: `latest`
 
-Now we move to Integration Testing and running our Pipeline
+Now we move to Integration Testing and execute the Pipeline
 
-Click on **[Integration Test and Run Pipeline](Integration.md)**
+Click on **[Integration Test and Run Pipeline](integration.md)**
